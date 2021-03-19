@@ -1,3 +1,4 @@
+import * as R from 'ramda';
 import { EFetchPhones } from 'actionTypes';
 
 const initialState = {};
@@ -6,7 +7,9 @@ const initialState = {};
 export const phones = (state = initialState, { type, payload }) => {
   switch (type) {
     case EFetchPhones.FETCH_PHONES_SUCCESS:
-      return state;
+      // @ts-ignore
+      const newValues = R.indexBy(R.prop('id'), payload);
+      return R.merge(state, newValues);
     default:
       return state;
   }
