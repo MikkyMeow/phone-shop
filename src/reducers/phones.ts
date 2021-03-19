@@ -1,7 +1,15 @@
+import { EFetchPhones } from 'actionTypes';
+
 const initialState = {};
 
-export const phones = (state = initialState) => {
-  return state;
+// @ts-ignore
+export const phones = (state = initialState, { type, payload }) => {
+  switch (type) {
+    case EFetchPhones.FETCH_PHONES_SUCCESS:
+      return state;
+    default:
+      return state;
+  }
 };
 
 export default phones;
