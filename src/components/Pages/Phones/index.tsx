@@ -1,7 +1,10 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import * as R from 'ramda';
+import { Link } from 'react-router-dom';
 
 import { fetchPhones } from 'actions';
+import { getPhones } from 'selectors';
 
 class Phones extends Component {
   componentDidMount() {
@@ -9,17 +12,51 @@ class Phones extends Component {
     this.props.fetchPhones();
   }
 
-  render() {
+  // @ts-ignore
+  renderPhone(phone, index) {
+    const shortDescription = `${R.take(60, phone.description)}...`;
+
     return (
-      <div>
-        <h2>Phones</h2>
+      <div className="col-sm-4 col-lg-4 col-md-4 book-list" key={index}>
+        <div className="thumbnail">
+          <img className="thumbnail" src={phone.image} alt={phone.name} />
+          <div className="caption">
+            <h4 className="pull-right">${phone.price}</h4>
+            <h4>
+              <Link to={`phones/${phone.id}`}>{phone.name}</Link>
+            </h4>
+            <p>{shortDescription}</p>
+            <p className="itemButton">
+              <button className="btn btn-primary">By now!</button>
+              <Link className="btn btn-default" to={`phones/${phone.id}`}>
+                More info
+              </Link>
+            </p>
+          </div>
+        </div>
+      </div>
+    );
+  }
+
+  render() {
+    // @ts-ignore
+    const { phones } = this.props;
+
+    return (
+      <div className="books row">
+        {phones.map((phone: any, index: any) => this.renderPhone(phone, index))}
       </div>
     );
   }
 }
 
+// @ts-ignore
+const mapStateToProps = (state) => ({
+  phones: getPhones(state),
+});
+
 const mapDispatchToProps = {
   fetchPhones,
 };
 
-export default connect(null, mapDispatchToProps)(Phones);
+export default connect(mapStateToProps, mapDispatchToProps)(Phones);
