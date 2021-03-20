@@ -6,3 +6,12 @@ export const fetchPhones = async () => {
     // reject('error');
   });
 };
+
+// @ts-ignore
+export const loadMorePhones = async ({ offset }) => {
+  return new Promise((resolve, reject) => {
+    // @ts-ignore
+    resolve(phones);
+    // reject('error');
+  });
+};
