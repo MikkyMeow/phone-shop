@@ -1,5 +1,5 @@
 import * as R from 'ramda';
-import { EFetchPhones, ELoadMorePhones } from 'actionTypes';
+import { EFetchPhoneById, EFetchPhones, ELoadMorePhones } from 'actionTypes';
 
 const initialState = {};
 
@@ -14,6 +14,8 @@ export const phones = (state = initialState, { type, payload }) => {
       // @ts-ignore
       const moreValues = R.indexBy(R.prop('id'), payload);
       return R.merge(state, moreValues);
+    case EFetchPhoneById.FETCH_PHONE_BY_ID_SUCCESS:
+      return R.assoc(payload.id, payload, state);
     default:
       return state;
   }

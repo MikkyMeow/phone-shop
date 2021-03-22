@@ -20,16 +20,7 @@ function App() {
   return (
     <Provider store={store}>
       <ConnectedRouter history={history}>
-        <div className="view-container">
-          <div className="container">
-            <div className="row">
-              <div className="col-md-3">Sidebar</div>
-              <div className="col-md-9">
-                <Router />
-              </div>
-            </div>
-          </div>
-        </div>
+        <Router />
       </ConnectedRouter>
     </Provider>
   );

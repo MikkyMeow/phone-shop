@@ -1,11 +1,10 @@
-import { EFetchPhones, ELoadMorePhones } from 'actionTypes';
+import { EFetchPhones, ELoadMorePhones, EFetchPhoneById } from 'actionTypes';
 import {
   fetchPhones as fetchPhonesApi,
   loadMorePhones as loadMorePhonesApi,
+  fetchPhoneById as fetchPhoneByIdApi,
 } from 'api';
 import { getRenderedPhonesLength } from 'selectors';
-
-interface IFetchPhones {}
 
 // @ts-ignore
 export const fetchPhones: React.FC<IFetchPhones> = () => async (dispatch) => {
@@ -29,10 +28,7 @@ export const fetchPhones: React.FC<IFetchPhones> = () => async (dispatch) => {
 };
 
 // @ts-ignore
-export const loadMorePhones: React.FC<IFetchPhones> = () => async (
-  dispatch: any,
-  getState: any
-) => {
+export const loadMorePhones = () => async (dispatch: any, getState: any) => {
   const offset = getRenderedPhonesLength(getState());
   dispatch({
     type: ELoadMorePhones.LOAD_MORE_PHONES_PENDING,
@@ -47,6 +43,27 @@ export const loadMorePhones: React.FC<IFetchPhones> = () => async (
   } catch (err) {
     dispatch({
       type: ELoadMorePhones.LOAD_MORE_PHONES_FAILURE,
+      payload: err,
+      error: true,
+    });
+  }
+};
+
+// @ts-ignore
+export const fetchPhoneById = (id) => async (dispatch) => {
+  dispatch({
+    type: EFetchPhoneById.FETCH_PHONE_BY_ID_PENDING,
+  });
+
+  try {
+    const phone = await fetchPhoneByIdApi(id);
+    dispatch({
+      type: EFetchPhoneById.FETCH_PHONE_BY_ID_SUCCESS,
+      payload: phone,
+    });
+  } catch (err) {
+    dispatch({
+      type: EFetchPhoneById.FETCH_PHONE_BY_ID_FAILURE,
       payload: err,
       error: true,
     });
