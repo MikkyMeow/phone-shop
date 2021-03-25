@@ -1,4 +1,9 @@
-import { EFetchPhones, ELoadMorePhones, EFetchPhoneById } from 'actionTypes';
+import {
+  EFetchPhones,
+  ELoadMorePhones,
+  EFetchPhoneById,
+  EAddPhoneToBasket,
+} from 'actionTypes';
 import {
   fetchPhones as fetchPhonesApi,
   loadMorePhones as loadMorePhonesApi,
@@ -68,4 +73,12 @@ export const fetchPhoneById = (id) => async (dispatch) => {
       error: true,
     });
   }
+};
+
+// @ts-ignore
+export const addPhoneToBasket = (id) => (dispatch) => {
+  dispatch({
+    type: EAddPhoneToBasket.ADD_PHONE_TO_BASKET,
+    payload: id,
+  });
 };

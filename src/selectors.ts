@@ -12,3 +12,17 @@ export const getPhones = (state) => {
 // @ts-ignore
 export const getRenderedPhonesLength = (state) =>
   R.length(state.phonesPage.ids);
+
+// @ts-ignore
+export const getTotalBasketCount = (state) => R.length(state.basket);
+
+// @ts-ignore
+export const getTotalBasketPrice = (state) => {
+  const totalPrice = R.compose(
+    R.sum,
+    R.pluck('price'),
+    R.map((id) => getPhoneById(state, id))
+  )(state.basket);
+
+  return totalPrice;
+};
