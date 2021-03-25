@@ -19,3 +19,7 @@ export enum EFetchPhoneById {
 export enum EAddPhoneToBasket {
   ADD_PHONE_TO_BASKET = 'ADD_PHONE_TO_BASKET',
 }
+
+export enum ESearchPhone {
+  SEARCH_PHONE = 'SEARCH_PHONE',
+}

@@ -3,6 +3,7 @@ import {
   ELoadMorePhones,
   EFetchPhoneById,
   EAddPhoneToBasket,
+  ESearchPhone,
 } from 'actionTypes';
 import {
   fetchPhones as fetchPhonesApi,
@@ -80,5 +81,13 @@ export const addPhoneToBasket = (id) => (dispatch) => {
   dispatch({
     type: EAddPhoneToBasket.ADD_PHONE_TO_BASKET,
     payload: id,
+  });
+};
+
+// @ts-ignore
+export const searchPhone = (text) => (dispatch) => {
+  dispatch({
+    type: ESearchPhone.SEARCH_PHONE,
+    payload: text,
   });
 };

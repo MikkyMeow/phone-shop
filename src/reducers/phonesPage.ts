@@ -1,8 +1,9 @@
 import * as R from 'ramda';
-import { EFetchPhones, ELoadMorePhones } from './../actionTypes';
+import { EFetchPhones, ELoadMorePhones, ESearchPhone } from './../actionTypes';
 
 const initialState = {
   ids: [],
+  search: '',
 };
 
 // @ts-ignore
@@ -20,7 +21,10 @@ const phonesPage = (state = initialState, { type, payload }) => {
         // @ts-ignore
         ids: R.concat(state.ids, ids),
       });
-
+    case ESearchPhone.SEARCH_PHONE:
+      return R.merge(state, {
+        search: payload,
+      });
     default:
       return state;
   }
